@@ -18,7 +18,7 @@ export function AboutSection() {
         <h3>University of Central Florida</h3>
         <p>Bachelor of Science in Computer Science</p>
         <dl>
-          <div><dt>Completion</dt><dd>Expected May 2027</dd></div>
+          <div><dt>Completion</dt><dd>Graduation timeline in progress</dd></div>
           <div><dt>Academic signal</dt><dd>3.82 GPA</dd></div>
           <div><dt>Recognition</dt><dd>Dean&apos;s List 4 times</dd></div>
           <div><dt>Scholarship</dt><dd>Florida Academic Scholarship</dd></div>

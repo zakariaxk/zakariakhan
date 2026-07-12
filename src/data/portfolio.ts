@@ -4,6 +4,7 @@ export type Project = {
   code: string;
   summary: string;
   stack: string[];
+  architecture: string[];
   metrics: { value: string; label: string }[];
   details: string[];
   status: string;
@@ -12,8 +13,8 @@ export type Project = {
 export const identity = {
   name: "Zakaria Khan",
   role: "Software Engineer and AI Systems Builder",
-  statement: "I build intelligent systems that turn complex signals into decisive action.",
-  bio: "Computer Science student at the University of Central Florida with a 3.82 GPA and experience building agentic AI, resilient backend services, computer vision pipelines, and real time products. I am drawn to systems where reliability, intelligence, and human judgment have to work together.",
+  statement: "I build intelligent systems engineered for measurable, real-world impact.",
+  bio: "Computer Science student at the University of Central Florida with a 3.82 GPA and experience building agentic AI, resilient backend services, computer vision pipelines, and real-time products. I care about intelligence that survives contact with the real world: systems that are reliable, legible, and genuinely useful to the people making consequential decisions.",
   email: "zakariaak05@gmail.com",
   linkedin: "https://www.linkedin.com/in/zakaria-khan1",
   github: "https://github.com/zakariaxk",
@@ -25,7 +26,8 @@ export const projects: Project[] = [
     name: "StabilityNet",
     code: "CV 01",
     summary: "A fall risk and mobility analysis system that converts video streams into interpretable movement intelligence.",
-    stack: ["YOLO26n", "PyTorch", "OpenCV", "FastAPI", "Next.js", "SORT"],
+    stack: ["Python", "YOLO26n", "PyTorch", "OpenCV", "SORT", "NumPy", "Pandas", "FastAPI", "Pydantic", "Uvicorn", "Next.js", "React", "TypeScript", "REST APIs", "Async inference", "Docker"],
+    architecture: ["Video ingestion", "Person detection", "Multi-object tracking", "Temporal feature extraction", "Risk scoring", "Event review UI"],
     metrics: [
       { value: "22", label: "frames per second" },
       { value: "2 to 5s", label: "motion windows" },
@@ -43,7 +45,8 @@ export const projects: Project[] = [
     name: "Waypoints",
     code: "RT 02",
     summary: "A social location platform designed for high frequency GPS updates, reconnect safety, and reliable shared routes.",
-    stack: ["React Native", "Node.js", "WebSockets", "Socket.IO", "GPS"],
+    stack: ["React Native", "React", "TypeScript", "Node.js", "Express", "Socket.IO", "WebSockets", "REST APIs", "GPS / Geolocation", "Event-driven architecture", "Stateless services", "Mobile session recovery", "Docker"],
+    architecture: ["Mobile GPS client", "Presence gateway", "Realtime event bus", "Route-state service", "Reconnect reconciliation", "Shared map UI"],
     metrics: [
       { value: "500+", label: "concurrent sessions" },
       { value: "10+", label: "updates per second" },
@@ -61,7 +64,8 @@ export const projects: Project[] = [
     name: "CLT Intelligence",
     code: "DS 03",
     summary: "A decision support platform that prioritizes affordable housing opportunities through evidence based scoring and spatial analysis.",
-    stack: ["FastAPI", "Pandas", "NumPy", "Leaflet", "Census Data", "Geocoding"],
+    stack: ["Python", "FastAPI", "Pydantic", "Pandas", "NumPy", "GeoJSON", "Leaflet", "React", "TypeScript", "REST APIs", "U.S. Census ACS", "Geocoding", "Spatial scoring", "Data normalization"],
+    architecture: ["Public-data ingestion", "Schema normalization", "Multi-factor scoring", "Geocoding", "Spatial API", "Interactive acquisition map"],
     metrics: [
       { value: "< 3s", label: "evaluation time" },
       { value: "5+ min", label: "previous workflow" },
@@ -73,6 +77,44 @@ export const projects: Project[] = [
       "Added address search and spatial mapping for rapid property review.",
     ],
     status: "DECISION ENGINE READY",
+  },
+  {
+    id: "options-forecast",
+    name: "Options Forecast",
+    code: "QT 04",
+    summary: "A quantitative research system that forecasts option prices and tests whether model signal survives realistic historical strategy evaluation.",
+    stack: ["Python", "scikit-learn", "Pandas", "NumPy", "SciPy", "yfinance", "Time-series features", "Supervised learning", "Options analytics", "Historical backtesting", "Risk metrics", "Matplotlib", "Jupyter", "Git"],
+    architecture: ["Market-data ingestion", "Feature engineering", "Forecast model", "Signal generation", "Strategy simulator", "Performance and risk analytics"],
+    metrics: [
+      { value: "2", label: "research layers" },
+      { value: "E2E", label: "forecast to backtest" },
+      { value: "∞", label: "strategy experiments" },
+    ],
+    details: [
+      "Built a repeatable pipeline from historical market data through feature generation and model evaluation.",
+      "Connected predictions to a backtesting layer so accuracy is judged against strategy behavior, not a model score alone.",
+      "Instrumented performance with return, drawdown, volatility, and risk-adjusted analysis for honest comparison.",
+    ],
+    status: "MARKET SIGNAL ACQUIRED",
+  },
+  {
+    id: "clearview",
+    name: "ClearView",
+    code: "AI 05",
+    summary: "An AI-assisted software inventory intelligence platform that turns inconsistent asset exports into lifecycle, compliance, and risk visibility.",
+    stack: ["Next.js", "React", "TypeScript", "JavaScript", "Node.js", "Gemini API", "Axios", "Tailwind CSS", "Vite", "CSV parsing", "Rule-based inference", "Interactive dashboards", "Local-first processing", "Postman", "Git"],
+    architecture: ["CSV / text ingestion", "AI normalization", "EOS rules engine", "Lifecycle risk classification", "KPI dashboard", "Audit-ready export"],
+    metrics: [
+      { value: "AI", label: "inventory normalization" },
+      { value: "6", label: "pipeline stages" },
+      { value: "LOCAL", label: "processing model" },
+    ],
+    details: [
+      "Used Gemini-assisted normalization to reconcile inconsistent vendor, product, and version naming.",
+      "Combined rule-based end-of-support prediction with lifecycle risk classification for explainable results.",
+      "Designed an interactive dashboard and cleaned export workflow for IT audits and compliance review.",
+    ],
+    status: "LIFECYCLE MAP RESOLVED",
   },
 ];
 

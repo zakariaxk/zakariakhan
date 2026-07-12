@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { identity } from "@/data/portfolio";
 import { AboutSection, ContactSection, ExperienceSection, SkillsSection } from "./ArchiveSections";
 import { ProjectSection } from "./ProjectSection";
+import { SpaceScene } from "./scene/SpaceScene";
 
 const nav = ["profile", "projects", "trajectory", "systems", "contact"];
 
@@ -30,13 +31,14 @@ export function PortfolioExperience() {
 
   return (
     <main className="mission-shell">
+      <SpaceScene activeSection={active} />
       <motion.div className="scroll-progress" style={{ scaleX: progress }} />
       <header className="topbar">
         <a className="brand" href="#profile"><span>ZK</span><strong>ZAKARIA KHAN</strong></a>
         <nav aria-label="Portfolio navigation">
           {nav.map((item, index) => <a key={item} className={active === item ? "active" : ""} href={`#${item}`}><small>0{index + 1}</small>{item}</a>)}
         </nav>
-        <a className="status-link" href={`mailto:${identity.email}`}><i /> AVAILABLE 2027</a>
+        <a className="status-link" href={`mailto:${identity.email}`}><i /> OPEN TO OPPORTUNITIES</a>
       </header>
 
       <section id="profile" className="hero section-shell">
@@ -54,7 +56,7 @@ export function PortfolioExperience() {
         <aside className="hero-telemetry">
           <span>OPERATOR</span><strong>SOFTWARE ENGINEER</strong>
           <span>ORIGIN</span><strong>ORLANDO, FL</strong>
-          <span>EDUCATION</span><strong>UCF / MAY 2027</strong>
+          <span>EDUCATION</span><strong>UCF / COMPUTER SCIENCE</strong>
           <span>GPA</span><strong>3.82 / 4.00</strong>
         </aside>
         <div className="hero-coordinate">ASTRONAUT 01 <i /> UNKNOWN SYSTEM ∞</div>
