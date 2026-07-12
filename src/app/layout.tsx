@@ -1,24 +1,40 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, IBM_Plex_Mono, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
+const display = localFont({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
+  src: "./fonts/cormorant-garamond-latin.woff2",
+  weight: "400 600",
 });
 
-const body = Manrope({ variable: "--font-body", subsets: ["latin"] });
-const mono = IBM_Plex_Mono({
+const body = localFont({
+  variable: "--font-body",
+  display: "swap",
+  src: "./fonts/manrope-latin.woff2",
+  weight: "200 800",
+});
+
+const mono = localFont({
   variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  display: "swap",
+  src: [
+    {
+      path: "./fonts/ibm-plex-mono-latin-400.woff2",
+      weight: "400",
+    },
+    {
+      path: "./fonts/ibm-plex-mono-latin-500.woff2",
+      weight: "500",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
-  title: "Zakaria Khan — Signal Seeker",
+  title: "Zakaria Khan | Software Engineer",
   description:
-    "An interactive archive of systems, experiments, and difficult problems mapped by Zakaria Khan.",
+    "Portfolio of Zakaria Khan, a software engineer building intelligent systems, resilient services, and real time products.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

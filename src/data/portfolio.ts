@@ -1,147 +1,128 @@
 export type Project = {
   id: string;
   name: string;
-  signal: string;
+  code: string;
   summary: string;
-  role: string;
   stack: string[];
-  challenge: string;
-  outcome: string;
-  github?: string;
-  live?: string;
-  featured: boolean;
-  position: [number, number, number];
+  metrics: { value: string; label: string }[];
+  details: string[];
+  status: string;
 };
 
 export const identity = {
   name: "Zakaria Khan",
-  designation: "SIGNAL SEEKER / SYSTEMS BUILDER",
-  statement: "Mapping difficult systems at the edge of what I know.",
-  bio: "I build software where ambiguity is high and the path is not obvious. My work moves across intelligent systems, real-time platforms, quantitative tools, and full-stack products—always driven by the same instinct: understand the signal, make the system legible, and keep moving toward harder questions.",
+  role: "Software Engineer and AI Systems Builder",
+  statement: "I build intelligent systems that turn complex signals into decisive action.",
+  bio: "Computer Science student at the University of Central Florida with a 3.82 GPA and experience building agentic AI, resilient backend services, computer vision pipelines, and real time products. I am drawn to systems where reliability, intelligence, and human judgment have to work together.",
+  email: "zakariaak05@gmail.com",
+  linkedin: "https://www.linkedin.com/in/zakaria-khan1",
+  github: "https://github.com/zakariaxk",
 };
 
 export const projects: Project[] = [
   {
     id: "stabilitynet",
     name: "StabilityNet",
-    signal: "MOBILITY INTELLIGENCE / 01",
-    summary: "A temporal behavior modeling system for mobility analysis and fall-risk detection from video.",
-    role: "Machine Learning Engineer",
-    stack: ["Python", "Computer Vision", "Temporal Modeling", "ML"],
-    challenge: "Translate continuous human motion into reliable temporal signals without reducing complex behavior to isolated frames.",
-    outcome: "A research-oriented pipeline that connects video observations to interpretable mobility and risk patterns.",
-    github: "https://github.com/zakariaxk/StabilityNet-Mobility-Behavior-Analysis",
-    featured: true,
-    position: [-3.4, 1.2, -1.1],
+    code: "CV 01",
+    summary: "A fall risk and mobility analysis system that converts video streams into interpretable movement intelligence.",
+    stack: ["YOLO26n", "PyTorch", "OpenCV", "FastAPI", "Next.js", "SORT"],
+    metrics: [
+      { value: "22", label: "frames per second" },
+      { value: "2 to 5s", label: "motion windows" },
+      { value: "3", label: "risk features" },
+    ],
+    details: [
+      "Engineered person detection and SORT tracking to preserve identity across frames.",
+      "Extracted dwell time, speed, and motion variance to identify instability patterns.",
+      "Built async inference and an event review interface for operational analysis.",
+    ],
+    status: "VISION SYSTEM ONLINE",
   },
   {
     id: "waypoints",
     name: "Waypoints",
-    signal: "REAL-TIME SYSTEM / 02",
-    summary: "A social location platform engineered for low-latency GPS synchronization and resilient session presence.",
-    role: "Full-Stack Engineer",
-    stack: ["React Native", "TypeScript", "Node.js", "WebSockets"],
-    challenge: "Maintain coherent live state across unstable mobile connections, reconnects, and concurrent location updates.",
-    outcome: "A reconnect-safe event model supporting responsive location sharing and dependable presence management.",
-    featured: true,
-    position: [3.15, 0.7, -0.4],
+    code: "RT 02",
+    summary: "A social location platform designed for high frequency GPS updates, reconnect safety, and reliable shared routes.",
+    stack: ["React Native", "Node.js", "WebSockets", "Socket.IO", "GPS"],
+    metrics: [
+      { value: "500+", label: "concurrent sessions" },
+      { value: "10+", label: "updates per second" },
+      { value: "99.9%", label: "uptime" },
+    ],
+    details: [
+      "Architected stateless backend services for scalable presence and route state.",
+      "Implemented event driven synchronization through reconnects and network instability.",
+      "Improved route reliability by 40 percent under active mobile usage.",
+    ],
+    status: "REAL TIME LINK STABLE",
   },
   {
-    id: "options-forecast",
-    name: "Options Forecast",
-    signal: "QUANTITATIVE MODEL / 03",
-    summary: "A machine-learning toolkit for option-price forecasting and historical strategy backtesting.",
-    role: "ML / Quantitative Developer",
-    stack: ["Python", "Machine Learning", "Time Series", "Backtesting"],
-    challenge: "Separate predictive signal from market noise while keeping the evaluation grounded in historical strategy performance.",
-    outcome: "An experimentation system combining forecasts with advanced metrics and repeatable backtest analysis.",
-    github: "https://github.com/zakariaxk/options-forecast-backtest",
-    featured: true,
-    position: [0.35, -2.1, -1.8],
-  },
-  {
-    id: "watchlist",
-    name: "Watchlist",
-    signal: "PRODUCT SYSTEM / 04",
-    summary: "A TypeScript application for organizing and tracking films through a focused product interface.",
-    role: "Frontend / Product Engineer",
-    stack: ["TypeScript", "React", "Product Design"],
-    challenge: "Shape a familiar content workflow into a fast, coherent interface with clean state management.",
-    outcome: "A product-focused application demonstrating typed frontend architecture and interaction design.",
-    github: "https://github.com/zakariaxk/watchlist-app",
-    featured: false,
-    position: [-4.45, -1.75, -2.9],
-  },
-  {
-    id: "ledgerlite",
-    name: "LedgerLite",
-    signal: "FINANCIAL TOOL / 05",
-    summary: "A lightweight Python system for making everyday financial records easier to understand and maintain.",
-    role: "Python Developer",
-    stack: ["Python", "Data Modeling", "Automation"],
-    challenge: "Keep financial bookkeeping structured and useful without allowing operational complexity to overwhelm the workflow.",
-    outcome: "A compact foundation for readable records and repeatable financial operations.",
-    github: "https://github.com/zakariaxk/LedgerLite",
-    featured: false,
-    position: [4.7, -1.4, -3.2],
-  },
-  {
-    id: "colors-lamp",
-    name: "Colors LAMP",
-    signal: "FULL-STACK ARCHIVE / 06",
-    summary: "A LAMP application with authentication and end-to-end CRUD through PHP REST endpoints.",
-    role: "Full-Stack Developer",
-    stack: ["JavaScript", "PHP", "MySQL", "REST"],
-    challenge: "Connect browser interactions, authenticated server behavior, and persistent records through a clear API boundary.",
-    outcome: "A complete full-stack reference spanning identity, REST operations, data persistence, and client behavior.",
-    github: "https://github.com/zakariaxk/colors-lamp",
-    featured: false,
-    position: [0.05, 3.2, -3.8],
+    id: "clt-intelligence",
+    name: "CLT Intelligence",
+    code: "DS 03",
+    summary: "A decision support platform that prioritizes affordable housing opportunities through evidence based scoring and spatial analysis.",
+    stack: ["FastAPI", "Pandas", "NumPy", "Leaflet", "Census Data", "Geocoding"],
+    metrics: [
+      { value: "< 3s", label: "evaluation time" },
+      { value: "5+ min", label: "previous workflow" },
+      { value: "1", label: "unified scoring pipeline" },
+    ],
+    details: [
+      "Standardized federal census housing data into tract level decision signals.",
+      "Designed a multi factor scoring model for property acquisition prioritization.",
+      "Added address search and spatial mapping for rapid property review.",
+    ],
+    status: "DECISION ENGINE READY",
   },
 ];
 
 export const experience = [
   {
-    period: "CURRENT",
-    title: "Independent Systems Builder",
-    organization: "Research & Product Practice",
-    impact: "Building intelligent, real-time, and data-intensive systems while deepening the engineering discipline behind each layer.",
-    tags: ["AI / ML", "Full Stack", "Systems"],
+    period: "JUN 2026 to AUG 2026",
+    title: "Software Engineer Intern",
+    organization: "Bank of New York",
+    location: "Lake Mary, Florida",
+    impact: "Built a Python multi agent RAG platform with MCP across 68 microservices, cutting incident triage time by 70 percent. Connected ServiceNow, Splunk, GitLab, and Jira data for automated root cause analysis and grounded NAV exception support.",
+    tags: ["Python", "MCP", "RAG", "Enterprise APIs"],
   },
   {
-    period: "2025 — 2026",
-    title: "Machine Learning Explorer",
-    organization: "Applied Research",
-    impact: "Developed temporal behavior analysis and quantitative forecasting projects that turn uncertain inputs into testable signals.",
-    tags: ["Python", "Modeling", "Research"],
+    period: "JAN 2026 to APR 2026",
+    title: "Software Engineer Intern",
+    organization: "Minoria Tech",
+    location: "Orlando, Florida",
+    impact: "Implemented consistent state transitions for quotes, orders, and invoices, integrated live pricing and inventory APIs, and enforced multi tenant relational integrity with Drizzle ORM and Zod.",
+    tags: ["TypeScript", "Drizzle ORM", "Zod", "APIs"],
   },
   {
-    period: "2024 — 2025",
-    title: "Full-Stack Developer",
-    organization: "Product Systems",
-    impact: "Built authenticated applications, typed interfaces, and real-time data flows across web and mobile environments.",
-    tags: ["React", "Node.js", "APIs"],
+    period: "AUG 2025 to DEC 2025",
+    title: "Software Engineer Intern",
+    organization: "Bank of New York",
+    location: "Lake Mary, Florida",
+    impact: "Built monitoring and remediation services with Python and Spring Boot. Reduced false alerts by 30 percent, routed events through Redis with sub second latency, and automated audited recovery actions with Docker agents and Gemini.",
+    tags: ["Spring Boot", "Redis", "Isolation Forest", "Docker"],
   },
   {
-    period: "ORIGIN",
-    title: "Software Engineering Student",
-    organization: "Foundational Practice",
-    impact: "Learned to treat code as a system of decisions—observable, testable, and improved through deliberate iteration.",
-    tags: ["Computer Science", "Problem Solving", "Growth"],
+    period: "MAY 2024 to MAY 2026",
+    title: "Registered Pharmacy Technician",
+    organization: "Publix Pharmacy",
+    location: "Florida",
+    impact: "Worked in a high trust healthcare environment where precision, privacy, clear communication, and reliable execution mattered every day.",
+    tags: ["Patient Service", "Accuracy", "Operations"],
+  },
+  {
+    period: "JUN 2023 to MAY 2024",
+    title: "Front Service Clerk",
+    organization: "Publix",
+    location: "Florida",
+    impact: "Built an early foundation in customer service, teamwork, and staying composed in a fast moving operational environment.",
+    tags: ["Service", "Teamwork", "Operations"],
   },
 ];
 
 export const skillGroups = [
-  { name: "Frontend", skills: ["React", "Next.js", "TypeScript", "React Native", "Three.js"] },
-  { name: "Backend", skills: ["Node.js", "Python", "PHP", "REST APIs", "WebSockets"] },
-  { name: "AI / ML", skills: ["Computer Vision", "Temporal Models", "Forecasting", "Scikit-learn"] },
-  { name: "Data", skills: ["SQL", "MySQL", "Pandas", "Time Series", "Data Modeling"] },
-  { name: "Infrastructure", skills: ["Git", "Docker", "CI / CD", "Cloud Deployments"] },
-  { name: "Design / Tools", skills: ["Figma", "Prototyping", "Interaction Design", "Technical Writing"] },
-];
-
-export const channels = [
-  { label: "Email", value: "zakaria@example.com", href: "mailto:zakaria@example.com" },
-  { label: "GitHub", value: "@zakariaxk", href: "https://github.com/zakariaxk" },
-  { label: "LinkedIn", value: "Connect on LinkedIn", href: "https://www.linkedin.com/in/zakaria-khan" },
+  { name: "Languages", skills: ["Python", "Java", "C", "C++", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"] },
+  { name: "Application", skills: ["React", "Next.js", "Node.js", "Express", "Spring Boot", "FastAPI", "Socket.IO"] },
+  { name: "Intelligence", skills: ["PyTorch", "TensorFlow", "scikit-learn", "YOLO26", "Gemini API", "Google ADK", "Agentic AI"] },
+  { name: "Data and Cloud", skills: ["PostgreSQL", "Supabase", "MongoDB", "MySQL", "SQLite", "Redis", "AWS"] },
+  { name: "Engineering", skills: ["Docker", "Git", "GitHub", "Jenkins", "CI/CD", "REST APIs", "MCP", "Linux"] },
 ];

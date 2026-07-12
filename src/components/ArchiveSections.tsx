@@ -1,42 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { channels, experience, identity, skillGroups } from "@/data/portfolio";
+import { experience, identity, skillGroups } from "@/data/portfolio";
 
-const reveal = {
-  initial: { opacity: 0, y: 40 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.22 },
-  transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-};
+const reveal = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.2 }, transition: { duration: 0.65 } };
 
 export function AboutSection() {
   return (
-    <section id="about" className="section about-section">
-      <motion.div className="about-frame" {...reveal}>
-        <div className="about-frame__rail" aria-hidden="true">
-          <span>OPERATOR PROFILE</span>
-          <i />
-          <span>ARCHIVE 02</span>
-        </div>
-        <div className="about-frame__title">
-          <p className="eyebrow">02 / SIGNAL REGISTRY</p>
-          <h2>Built to<br /><em>search.</em></h2>
-        </div>
-        <div className="about-frame__body">
-          <span className="about-frame__index">ZK—1999 / ACTIVE</span>
-          <p>{identity.bio}</p>
-          <div className="about-frame__principles">
-            <span><small>01</small> Seek the difficult question</span>
-            <span><small>02</small> Make hidden systems legible</span>
-            <span><small>03</small> Leave a stronger map behind</span>
-          </div>
-        </div>
-        <div className="about-frame__telemetry" aria-hidden="true">
-          <div><span>DISCIPLINE</span><strong>RIGOR / CURIOSITY</strong></div>
-          <div><span>VECTOR</span><strong>UNKNOWN / FORWARD</strong></div>
-          <div><span>STATUS</span><strong>STILL SEARCHING</strong></div>
-        </div>
+    <section className="section-shell profile-brief">
+      <motion.div className="brief-copy" {...reveal}>
+        <p className="kicker">OPERATOR BRIEF / 01</p>
+        <h2>Curiosity with<br /><em>operational discipline.</em></h2>
+        <p>{identity.bio}</p>
+      </motion.div>
+      <motion.div className="education-card" {...reveal}>
+        <header><span>EDUCATION RECORD</span><i>VERIFIED</i></header>
+        <h3>University of Central Florida</h3>
+        <p>Bachelor of Science in Computer Science</p>
+        <dl>
+          <div><dt>Completion</dt><dd>Expected May 2027</dd></div>
+          <div><dt>Academic signal</dt><dd>3.82 GPA</dd></div>
+          <div><dt>Recognition</dt><dd>Dean&apos;s List 4 times</dd></div>
+          <div><dt>Scholarship</dt><dd>Florida Academic Scholarship</dd></div>
+        </dl>
       </motion.div>
     </section>
   );
@@ -44,99 +30,43 @@ export function AboutSection() {
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="section experience-section">
-      <motion.header className="section-heading trajectory-heading" {...reveal}>
-        <p className="eyebrow">04 / TRAJECTORY LOG</p>
-        <h2>Forward<br /><em>motion</em></h2>
-        <p>Every system changes the direction of the next. A working path, still accumulating signal.</p>
-      </motion.header>
-      <div className="trajectory">
-        <div className="trajectory__line" aria-hidden="true" />
+    <section id="trajectory" className="section-shell trajectory">
+      <header className="section-intro"><div><p className="kicker">EXPERIENCE / 05 WAYPOINTS</p><h2>Engineering<br /><em>trajectory.</em></h2></div><p>Enterprise AI, resilient services, healthcare operations, and customer trust. Every waypoint sharpened a different part of the system.</p></header>
+      <div className="timeline">
         {experience.map((role, index) => (
-          <motion.article
-            key={`${role.period}-${role.title}`}
-            className="waypoint"
-            initial={{ opacity: 0, x: index % 2 === 0 ? -35 : 35 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.75, delay: index * 0.08 }}
-          >
-            <div className="waypoint__marker" aria-hidden="true"><i /></div>
-            <div className="waypoint__period">{role.period}</div>
-            <div className="waypoint__record">
-              <span>WAYPOINT / {String(index + 1).padStart(2, "0")}</span>
-              <h3>{role.title}</h3>
-              <h4>{role.organization}</h4>
-              <p>{role.impact}</p>
-              <div>{role.tags.map((tag) => <small key={tag}>{tag}</small>)}</div>
-            </div>
+          <motion.article key={`${role.period}-${role.organization}`} {...reveal}>
+            <div className="timeline-code">0{index + 1}<i /></div>
+            <div className="timeline-period">{role.period}</div>
+            <div className="timeline-content"><span>{role.location}</span><h3>{role.title}</h3><h4>{role.organization}</h4><p>{role.impact}</p><div>{role.tags.map((tag) => <small key={tag}>{tag}</small>)}</div></div>
           </motion.article>
         ))}
       </div>
-      <p className="placeholder-note">Experience records are structured placeholders and can be replaced in one data file.</p>
     </section>
   );
 }
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="section skills-section">
-      <motion.header className="section-heading systems-heading" {...reveal}>
-        <div>
-          <p className="eyebrow">05 / SYSTEMS MATRIX</p>
-          <h2>Working<br /><em>instruments</em></h2>
-        </div>
-        <div className="systems-heading__readout">
-          <span>6 SYSTEM GROUPS</span>
-          <span>29 ACTIVE INSTRUMENTS</span>
-          <span>CONTINUOUS CALIBRATION</span>
-        </div>
-      </motion.header>
-      <div className="systems-matrix">
-        {skillGroups.map((group, index) => (
-          <motion.article
-            key={group.name}
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.65, delay: index * 0.06 }}
-          >
-            <header><span>{String(index + 1).padStart(2, "0")}</span><h3>{group.name}</h3><i /></header>
-            <ul>{group.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
-          </motion.article>
-        ))}
-      </div>
+    <section id="systems" className="section-shell systems">
+      <header className="section-intro"><div><p className="kicker">CAPABILITY MATRIX / 05 LAYERS</p><h2>Technical<br /><em>instrumentation.</em></h2></div><p>A practical stack for taking intelligent products from model and data layer through resilient delivery.</p></header>
+      <div className="skill-grid">{skillGroups.map((group, index) => <motion.article key={group.name} {...reveal}><header><span>0{index + 1}</span><h3>{group.name}</h3><i /></header><div>{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></motion.article>)}</div>
     </section>
   );
 }
 
 export function ContactSection() {
   return (
-    <section id="contact" className="section contact-section">
-      <motion.div className="transmission" {...reveal}>
-        <div className="transmission__signal" aria-hidden="true">
-          <i /><i /><i /><i /><i />
-        </div>
-        <p className="eyebrow">06 / OPEN CHANNEL</p>
-        <h2>Send a<br /><em>signal.</em></h2>
-        <p className="transmission__copy">
-          Difficult problem, uncertain direction, or an idea worth mapping? The channel is open.
-        </p>
-        <div className="channels">
-          {channels.map((channel, index) => (
-            <a key={channel.label} href={channel.href} target={channel.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
-              <span>{String(index + 1).padStart(2, "0")} / {channel.label}</span>
-              <strong>{channel.value}</strong>
-              <i>↗</i>
-            </a>
-          ))}
-        </div>
-        <footer>
-          <span>© {new Date().getFullYear()} {identity.name}</span>
-          <span>BUILT AT THE EDGE OF THE MAP</span>
-          <a href="#hero">RETURN TO ORIGIN ↑</a>
-        </footer>
-      </motion.div>
+    <section id="contact" className="section-shell contact">
+      <div className="contact-orbit" aria-hidden="true"><i /><i /><span>ZK</span></div>
+      <p className="kicker">OPEN CHANNEL / RESPONSE EXPECTED</p>
+      <h2>Let&apos;s build beyond<br /><em>the known map.</em></h2>
+      <p>I am open to software engineering, AI systems, and ambitious product work where difficult technical problems create real human value.</p>
+      <div className="contact-links">
+        <a href={`mailto:${identity.email}`}><span>EMAIL</span><strong>{identity.email}</strong><i>↗</i></a>
+        <a href={identity.linkedin} target="_blank" rel="noreferrer"><span>LINKEDIN</span><strong>zakaria-khan1</strong><i>↗</i></a>
+        <a href={identity.github} target="_blank" rel="noreferrer"><span>GITHUB</span><strong>@zakariaxk</strong><i>↗</i></a>
+      </div>
+      <footer><span>© {new Date().getFullYear()} ZAKARIA KHAN</span><span>ENGINEERED IN ORLANDO, FL</span><a href="#profile">RETURN TO ORBIT ↑</a></footer>
     </section>
   );
 }
