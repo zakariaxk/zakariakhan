@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { identity } from "@/data/portfolio";
 import { SpaceScene } from "./scene/SpaceScene";
+import { ProjectSection } from "./ProjectSection";
 
 const sections = ["hero", "about", "projects", "experience", "skills", "contact"];
 
@@ -11,6 +12,7 @@ export function PortfolioExperience() {
   const [entered, setEntered] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const audioContext = useRef<AudioContext | null>(null);
   const audioNodes = useRef<{ oscillator: OscillatorNode; gain: GainNode } | null>(null);
   const { scrollYProgress } = useScroll();
@@ -76,7 +78,7 @@ export function PortfolioExperience() {
 
   return (
     <main className={`archive ${entered ? "archive--entered" : ""}`}>
-      <SpaceScene entered={entered} activeSection={activeSection} />
+      <SpaceScene entered={entered} activeSection={activeSection} selectedProject={selectedProject} />
 
       <AnimatePresence>
         {!entered && (
@@ -170,7 +172,7 @@ export function PortfolioExperience() {
             </section>
 
             <div id="about" className="section section-placeholder" aria-label="About section anchor" />
-            <div id="projects" className="section section-placeholder" aria-label="Projects section anchor" />
+            <ProjectSection selectedId={selectedProject} onSelect={setSelectedProject} />
             <div id="experience" className="section section-placeholder" aria-label="Experience section anchor" />
             <div id="skills" className="section section-placeholder" aria-label="Skills section anchor" />
             <div id="contact" className="section section-placeholder" aria-label="Contact section anchor" />

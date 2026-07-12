@@ -4,8 +4,9 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, Points, PointMaterial } from "@react-three/drei";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { projects } from "@/data/portfolio";
 
-type SceneProps = { entered: boolean; activeSection: string };
+type SceneProps = { entered: boolean; activeSection: string; selectedProject: string | null };
 
 function seededValue(index: number, offset: number) {
   const value = Math.sin(index * 12.9898 + offset * 78.233) * 43758.5453;
@@ -126,7 +127,52 @@ function Debris() {
   );
 }
 
-function CameraRig({ entered, activeSection }: SceneProps) {
+function ProjectConstellation({ visible, selectedProject }: { visible: boolean; selectedProject: string | null }) {
+  const group = useRef<THREE.Group>(null);
+  const linePositions = useMemo(() => {
+    const values: number[] = [];
+    projects.forEach((project, index) => {
+      const next = projects[(index + 1) % projects.length];
+      values.push(...project.position, ...next.position);
+    });
+    return new Float32Array(values);
+  }, []);
+
+  useFrame(() => {
+    if (!group.current) return;
+    const target = visible ? 1 : 0;
+    group.current.scale.lerp(new THREE.Vector3(target, target, target), 0.045);
+    group.current.visible = group.current.scale.x > 0.01;
+  });
+
+  return (
+    <group ref={group} scale={0} position={[0, 0, 0.6]}>
+      <lineSegments>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
+        </bufferGeometry>
+        <lineBasicMaterial color="#6f868c" transparent opacity={0.15} />
+      </lineSegments>
+      {projects.map((project) => {
+        const selected = project.id === selectedProject;
+        return (
+          <group key={project.id} position={project.position}>
+            <mesh scale={selected ? 1.8 : project.featured ? 1.2 : 0.78}>
+              <sphereGeometry args={[0.085, 20, 20]} />
+              <meshBasicMaterial color={selected ? "#f0d4a0" : project.featured ? "#bd9b63" : "#70888d"} />
+            </mesh>
+            <mesh rotation={[Math.PI / 2, 0, 0]} scale={selected ? 1.5 : 1}>
+              <torusGeometry args={[project.featured ? 0.23 : 0.17, 0.008, 6, 48]} />
+              <meshBasicMaterial color={project.featured ? "#bd9b63" : "#70888d"} transparent opacity={selected ? 0.9 : 0.38} />
+            </mesh>
+          </group>
+        );
+      })}
+    </group>
+  );
+}
+
+function CameraRig({ entered, activeSection, selectedProject }: SceneProps) {
   useFrame((state) => {
     const sectionDepth: Record<string, number> = {
       hero: 10.5,
@@ -136,17 +182,20 @@ function CameraRig({ entered, activeSection }: SceneProps) {
       skills: 11.5,
       contact: 13,
     };
+    const selected = projects.find((project) => project.id === selectedProject);
     const targetZ = entered ? sectionDepth[activeSection] ?? 10.5 : 18;
     const camera = state.camera;
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, entered ? 0.018 : 0.008);
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, state.pointer.x * 0.22, 0.018);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, state.pointer.y * 0.14, 0.018);
+    const selectedX = activeSection === "projects" && selected ? selected.position[0] * 0.16 : 0;
+    const selectedY = activeSection === "projects" && selected ? selected.position[1] * 0.14 : 0;
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, selectedX + state.pointer.x * 0.22, selected ? 0.04 : 0.018);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, selectedY + state.pointer.y * 0.14, selected ? 0.04 : 0.018);
     camera.lookAt(0, 0, 0);
   });
   return null;
 }
 
-function Scene({ entered, activeSection }: SceneProps) {
+function Scene({ entered, activeSection, selectedProject }: SceneProps) {
   const count = typeof window !== "undefined" && window.innerWidth < 768 ? 850 : 1900;
   return (
     <>
@@ -157,7 +206,8 @@ function Scene({ entered, activeSection }: SceneProps) {
       <StarField count={count} />
       <BlackHole entered={entered} />
       <Debris />
-      <CameraRig entered={entered} activeSection={activeSection} />
+      <ProjectConstellation visible={activeSection === "projects"} selectedProject={selectedProject} />
+      <CameraRig entered={entered} activeSection={activeSection} selectedProject={selectedProject} />
     </>
   );
 }
