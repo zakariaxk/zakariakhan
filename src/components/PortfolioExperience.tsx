@@ -16,18 +16,36 @@ export function PortfolioExperience() {
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 25 });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const current = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (current?.target.id) setActive(current.target.id);
-      },
-      { threshold: [0.25, 0.5], rootMargin: "-15% 0px -55%" },
-    );
-    nav.forEach((id) => {
-      const node = document.getElementById(id);
-      if (node) observer.observe(node);
-    });
-    return () => observer.disconnect();
+    const updateActiveSection = () => {
+      const viewportAnchor = window.innerHeight * 0.35;
+      let next = nav[0];
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      nav.forEach((id) => {
+        const node = document.getElementById(id);
+        if (!node) return;
+
+        const rect = node.getBoundingClientRect();
+        const withinSection = rect.top <= viewportAnchor && rect.bottom >= viewportAnchor;
+        const distance = withinSection ? 0 : Math.abs(rect.top - viewportAnchor);
+
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          next = id;
+        }
+      });
+
+      setActive(next);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
   useEffect(() => {
@@ -76,7 +94,7 @@ export function PortfolioExperience() {
 
       <section id="profile" className="hero section-shell">
         <motion.div className="hero-content" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
-          <p className="kicker">SOFTWARE ENGINEER / AI SYSTEMS</p>
+          <p className="kicker">SOFTWARE ENGINEER</p>
           <h1><span>ZAKARIA</span><strong>KHAN</strong></h1>
           <p className="hero-statement">{identity.statement}</p>
           <div className="hero-actions">

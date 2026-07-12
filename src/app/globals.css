@@ -411,6 +411,10 @@ a {
   margin-bottom: 1.8rem;
 }
 
+.project-intro > p {
+  max-width: 32rem;
+}
+
 .artifact-field {
   --field-x: 0px;
   --field-y: 0px;
@@ -537,16 +541,61 @@ a {
 
 .project-dossier {
   position: relative;
-  margin-top: 1rem;
+  width: min(1100px, calc(100vw - 2rem));
+  max-height: min(82vh, 980px);
+  overflow: auto;
   padding: clamp(1.5rem, 4vw, 4rem);
   border: 1px solid var(--line-strong);
-  background: rgba(8, 7, 8, 0.88);
-  backdrop-filter: blur(24px);
+  background: rgba(8, 7, 8, 0.94);
+  backdrop-filter: blur(28px);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.52);
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(5, 5, 7, 0.62);
+  backdrop-filter: blur(10px);
+}
+
+.project-dossier__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--pearl);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.project-dossier__close:hover,
+.project-dossier__close:focus-visible {
+  border-color: var(--amber-hot);
+  background: rgba(243, 154, 82, 0.08);
+  color: var(--amber-hot);
+}
+
+.project-dossier__close:focus-visible {
+  outline: 2px solid var(--amber-hot);
+  outline-offset: 4px;
 }
 
 .project-dossier > header {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
+  padding-right: 3.4rem;
   color: var(--amber-hot);
   font: 500 0.56rem var(--font-mono);
   letter-spacing: 0.1em;
@@ -762,7 +811,7 @@ a {
 
 .skill-grid article {
   min-height: 270px;
-  padding: 1.5rem;
+  padding: 1.75rem;
   background: rgba(8, 7, 8, 0.9);
 }
 
@@ -777,24 +826,24 @@ a {
 
 .skill-grid article h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.22rem;
 }
 
 .skill-grid article > div {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
   margin-top: 1.4rem;
 }
 
 .skill-grid article > div span {
   color: var(--muted);
-  font: 500 0.58rem var(--font-mono);
+  font: 500 0.8rem/1.5 var(--font-mono);
   letter-spacing: 0.03em;
 }
 
 .skill-grid article > div span:not(:last-child)::after {
-  margin-left: 0.5rem;
+  margin-left: 0.75rem;
   content: "/";
   color: var(--muted-deep);
 }
@@ -1036,11 +1085,20 @@ a {
   }
 
   .project-dossier {
+    width: min(100vw - 1rem, 100%);
+    max-height: 86vh;
     padding: 1.3rem;
   }
 
   .project-dossier > header b {
     display: none;
+  }
+
+  .project-dossier__close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 38px;
+    height: 38px;
   }
 
   .dossier-lead h3 {
@@ -1080,6 +1138,14 @@ a {
 
   .skill-grid article {
     min-height: auto;
+  }
+
+  .skill-grid article h3 {
+    font-size: 1.08rem;
+  }
+
+  .skill-grid article > div span {
+    font-size: 0.74rem;
   }
 
   .contact-links a {
