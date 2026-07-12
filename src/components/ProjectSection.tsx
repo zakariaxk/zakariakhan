@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { projects } from "@/data/portfolio";
 
@@ -14,10 +14,22 @@ const artifactPositions = [
 
 export function ProjectSection() {
   const [selected, setSelected] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const field = useRef<HTMLDivElement>(null);
   const project = projects[selected];
 
-  const moveField = (event: React.PointerEvent<HTMLDivElement>) => {
+  useEffect(() => {
+    if (!isModalOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsModalOpen(false);
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isModalOpen]);
+
+  const moveField = (event: ReactPointerEvent<HTMLDivElement>) => {
     const bounds = field.current?.getBoundingClientRect();
     if (!bounds || !field.current) return;
     const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
@@ -39,7 +51,10 @@ export function ProjectSection() {
             key={item.id}
             className={`artifact artifact--${index + 1} ${selected === index ? "is-active" : ""}`}
             style={{ left: artifactPositions[index].x, top: artifactPositions[index].y, animationDelay: artifactPositions[index].delay }}
-            onClick={() => setSelected(index)}
+            onClick={() => {
+              setSelected(index);
+              setIsModalOpen(true);
+            }}
             aria-pressed={selected === index}
             aria-label={`Inspect ${item.name}`}
           >
@@ -49,16 +64,38 @@ export function ProjectSection() {
         ))}
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.article key={project.id} className="project-dossier" initial={{ opacity: 0, y: 24, filter: "blur(8px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -16, filter: "blur(6px)" }} transition={{ duration: 0.45 }}>
-          <header><span>{project.status}</span><b>{project.code} / TECHNICAL DOSSIER</b></header>
-          <div className="dossier-grid">
-            <div className="dossier-lead"><h3>{project.name}</h3><p>{project.summary}</p><div className="metrics">{project.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div></div>
-            <div className="dossier-details"><p className="dossier-label">SYSTEM IMPACT</p><ul>{project.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div>
-          </div>
-          <div className="architecture"><p className="dossier-label">ARCHITECTURE TRACE</p><div>{project.architecture.map((layer, index) => <span key={layer}><small>{String(index + 1).padStart(2, "0")}</small>{layer}{index < project.architecture.length - 1 && <i>→</i>}</span>)}</div></div>
-          <div className="stack stack--exhaustive"><p className="dossier-label">COMPLETE TECHNICAL SURFACE / {project.stack.length} COMPONENTS</p><div>{project.stack.map((item) => <span key={item}>{item}</span>)}</div></div>
-        </motion.article>
+      <AnimatePresence>
+        {isModalOpen ? (
+          <motion.div
+            className="project-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setIsModalOpen(false)}
+          >
+            <motion.article
+              key={project.id}
+              className="project-dossier"
+              initial={{ opacity: 0, y: 24, scale: 0.98, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -16, scale: 0.98, filter: "blur(6px)" }}
+              transition={{ duration: 0.35 }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button className="project-dossier__close" type="button" onClick={() => setIsModalOpen(false)} aria-label="Close project details">
+                ×
+              </button>
+              <header><span>{project.status}</span><b>{project.code} / TECHNICAL DOSSIER</b></header>
+              <div className="dossier-grid">
+                <div className="dossier-lead"><h3>{project.name}</h3><p>{project.summary}</p><div className="metrics">{project.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div></div>
+                <div className="dossier-details"><p className="dossier-label">SYSTEM IMPACT</p><ul>{project.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div>
+              </div>
+              <div className="architecture"><p className="dossier-label">ARCHITECTURE TRACE</p><div>{project.architecture.map((layer, index) => <span key={layer}><small>{String(index + 1).padStart(2, "0")}</small>{layer}{index < project.architecture.length - 1 && <i>→</i>}</span>)}</div></div>
+              <div className="stack stack--exhaustive"><p className="dossier-label">COMPLETE TECHNICAL SURFACE / {project.stack.length} COMPONENTS</p><div>{project.stack.map((item) => <span key={item}>{item}</span>)}</div></div>
+            </motion.article>
+          </motion.div>
+        ) : null}
       </AnimatePresence>
     </section>
   );

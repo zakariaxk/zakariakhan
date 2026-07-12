@@ -12,7 +12,7 @@ export type Project = {
 
 export const identity = {
   name: "Zakaria Khan",
-  role: "Software Engineer and AI Systems Builder",
+  role: "Software Engineer",
   statement: "I build intelligent systems engineered for measurable, real-world impact.",
   bio: "Computer Science student at the University of Central Florida with a 3.82 GPA and experience building agentic AI, resilient backend services, computer vision pipelines, and real-time products. I care about intelligence that survives contact with the real world: systems that are reliable, legible, and genuinely useful to the people making consequential decisions.",
   email: "zakariaak05@gmail.com",
