@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { identity } from "@/data/portfolio";
 import { AboutSection, ContactSection, ExperienceSection, SkillsSection } from "./ArchiveSections";
@@ -11,6 +11,7 @@ const nav = ["profile", "projects", "trajectory", "systems", "contact"];
 
 export function PortfolioExperience() {
   const [active, setActive] = useState("profile");
+  const shell = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 90, damping: 25 });
 
@@ -39,14 +40,27 @@ export function PortfolioExperience() {
     return () => window.removeEventListener("hashchange", syncWithHash);
   }, []);
 
+  useEffect(() => {
+    const updateSpatialField = (event: PointerEvent) => {
+      if (!shell.current) return;
+      const x = (event.clientX / window.innerWidth - 0.5) * 2;
+      const y = (event.clientY / window.innerHeight - 0.5) * 2;
+      shell.current.style.setProperty("--pointer-x", x.toFixed(3));
+      shell.current.style.setProperty("--pointer-y", y.toFixed(3));
+    };
+
+    window.addEventListener("pointermove", updateSpatialField, { passive: true });
+    return () => window.removeEventListener("pointermove", updateSpatialField);
+  }, []);
+
   return (
-    <main className="mission-shell">
+    <main ref={shell} className={`mission-shell mission-shell--${active}`}>
       <SpaceScene activeSection={active} />
       <motion.div className="scroll-progress" style={{ scaleX: progress }} />
       <header className="topbar">
         <a className="brand" href="#profile"><span>ZK</span><strong>ZAKARIA KHAN</strong></a>
         <nav aria-label="Portfolio navigation">
-          {nav.map((item, index) => (
+          {nav.map((item) => (
             <a
               key={item}
               className={active === item ? "active" : ""}
@@ -54,7 +68,6 @@ export function PortfolioExperience() {
               aria-current={active === item ? "page" : undefined}
               onClick={() => setActive(item)}
             >
-              <small>0{index + 1}</small>
               {item}
             </a>
           ))}
@@ -62,24 +75,15 @@ export function PortfolioExperience() {
       </header>
 
       <section id="profile" className="hero section-shell">
-        <div className="hero-backdrop" aria-hidden="true" />
-        <div className="hero-grid" aria-hidden="true" />
         <motion.div className="hero-content" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
-          <p className="kicker">MISSION PROFILE / SOFTWARE ENGINEERING</p>
+          <p className="kicker">SOFTWARE ENGINEER / AI SYSTEMS</p>
           <h1><span>ZAKARIA</span><strong>KHAN</strong></h1>
           <p className="hero-statement">{identity.statement}</p>
           <div className="hero-actions">
-            <a className="primary-action" href="#projects">EXPLORE SYSTEMS <span>↘</span></a>
-            <a href={identity.linkedin} target="_blank" rel="noreferrer">LINKEDIN ↗</a>
+            <a className="primary-action" href="#projects">VIEW WORK</a>
+            <a href={identity.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a>
           </div>
         </motion.div>
-        <aside className="hero-telemetry">
-          <span>OPERATOR</span><strong>SOFTWARE ENGINEER</strong>
-          <span>ORIGIN</span><strong>ORLANDO, FL</strong>
-          <span>EDUCATION</span><strong>UCF / COMPUTER SCIENCE</strong>
-          <span>GPA</span><strong>3.82 / 4.00</strong>
-        </aside>
-        <div className="hero-coordinate">ASTRONAUT 01 <i /> UNKNOWN SYSTEM ∞</div>
       </section>
 
       <AboutSection />
