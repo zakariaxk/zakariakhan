@@ -57,7 +57,8 @@ function BlackHole({ entered }: { entered: boolean }) {
     system.current.rotation.z = THREE.MathUtils.lerp(system.current.rotation.z, state.pointer.x * 0.025, 0.02);
     disc.current.rotation.z -= delta * 0.055;
     const targetScale = entered ? 1 : 0.48;
-    system.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.018);
+    const nextScale = THREE.MathUtils.lerp(system.current.scale.x, targetScale, 0.018);
+    system.current.scale.setScalar(nextScale);
   });
 
   return (
@@ -141,7 +142,8 @@ function ProjectConstellation({ visible, selectedProject }: { visible: boolean; 
   useFrame(() => {
     if (!group.current) return;
     const target = visible ? 1 : 0;
-    group.current.scale.lerp(new THREE.Vector3(target, target, target), 0.045);
+    const nextScale = THREE.MathUtils.lerp(group.current.scale.x, target, 0.045);
+    group.current.scale.setScalar(nextScale);
     group.current.visible = group.current.scale.x > 0.01;
   });
 

@@ -24,8 +24,8 @@ button { color: inherit; }
 a { color: inherit; }
 ::selection { color: var(--void); background: var(--signal-bright); }
 
-.archive { position: relative; min-height: 100vh; background: var(--void); }
-.scene { position: fixed; inset: 0; z-index: 0; }
+.archive { position: relative; min-height: 100vh; background: var(--void); overflow: clip; }
+.scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
 .scene::after {
   content: "";
   position: absolute;
@@ -291,6 +291,9 @@ a { color: inherit; }
   .project-node:nth-of-type(5) { top: 65% !important; left: 20% !important; }
   .project-node:nth-of-type(6) { top: 80% !important; left: 64% !important; }
   .project-node__label { width: 138px; }
+  .project-node:nth-of-type(2) .project-node__label,
+  .project-node:nth-of-type(4) .project-node__label,
+  .project-node:nth-of-type(6) .project-node__label { left: auto; right: 28px; text-align: right; }
   .project-node__label strong { font-size: 1rem; }
   .project-node__label em { display: none; }
   .capsule { position: fixed; inset: auto .75rem .75rem; top: 11vh; width: auto; min-height: 0; max-height: 84vh; overflow-y: auto; padding: 2.1rem 1.3rem; z-index: 30; }
@@ -309,7 +312,7 @@ a { color: inherit; }
   .trajectory-heading > p:last-child { width: 90%; margin: 1.5rem 0 0; }
   .trajectory { width: 100%; margin-top: 5rem; }
   .trajectory__line { left: 8px; }
-  .waypoint, .waypoint:nth-of-type(odd) { width: 100%; margin-left: 0; padding: 0 0 5rem 3rem; }
+  .waypoint, .waypoint:nth-of-type(odd) { width: calc(100% - 1px); margin-left: 0; padding: 0 0 5rem 3rem; }
   .waypoint__marker, .waypoint:nth-of-type(odd) .waypoint__marker { left: 0; right: auto; }
   .waypoint__period, .waypoint:nth-of-type(odd) .waypoint__period { position: static; text-align: left; margin-bottom: .75rem; }
   .skills-section { min-height: 1500px; padding: 13vh 1.35rem; }
@@ -318,7 +321,7 @@ a { color: inherit; }
   .systems-matrix { grid-template-columns: 1fr; margin-top: 3rem; }
   .systems-matrix article { min-height: 0; }
   .contact-section { min-height: 1050px; padding: 14vh 1.35rem 2rem; }
-  .transmission h2 { font-size: clamp(5.7rem, 25vw, 8rem); }
+  .transmission h2 { max-width: 100%; font-size: clamp(5.2rem, 23vw, 7rem); }
   .channels a { grid-template-columns: 1fr auto; }
   .channels a span { grid-column: 1 / -1; }
   .transmission footer { flex-direction: column; gap: .8rem; }
