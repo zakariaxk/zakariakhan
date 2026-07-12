@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { identity } from "@/data/portfolio";
 import { SpaceScene } from "./scene/SpaceScene";
 import { ProjectSection } from "./ProjectSection";
+import { AboutSection, ContactSection, ExperienceSection, SkillsSection } from "./ArchiveSections";
 
 const sections = ["hero", "about", "projects", "experience", "skills", "contact"];
 
@@ -171,11 +172,11 @@ export function PortfolioExperience() {
               </a>
             </section>
 
-            <div id="about" className="section section-placeholder" aria-label="About section anchor" />
+            <AboutSection />
             <ProjectSection selectedId={selectedProject} onSelect={setSelectedProject} />
-            <div id="experience" className="section section-placeholder" aria-label="Experience section anchor" />
-            <div id="skills" className="section section-placeholder" aria-label="Skills section anchor" />
-            <div id="contact" className="section section-placeholder" aria-label="Contact section anchor" />
+            <ExperienceSection />
+            <SkillsSection />
+            <ContactSection />
           </motion.div>
         )}
       </AnimatePresence>
