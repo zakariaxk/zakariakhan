@@ -29,6 +29,16 @@ export function PortfolioExperience() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const syncWithHash = () => {
+      const next = window.location.hash.replace("#", "");
+      if (nav.includes(next)) setActive(next);
+    };
+    syncWithHash();
+    window.addEventListener("hashchange", syncWithHash);
+    return () => window.removeEventListener("hashchange", syncWithHash);
+  }, []);
+
   return (
     <main className="mission-shell">
       <SpaceScene activeSection={active} />
@@ -36,9 +46,19 @@ export function PortfolioExperience() {
       <header className="topbar">
         <a className="brand" href="#profile"><span>ZK</span><strong>ZAKARIA KHAN</strong></a>
         <nav aria-label="Portfolio navigation">
-          {nav.map((item, index) => <a key={item} className={active === item ? "active" : ""} href={`#${item}`}><small>0{index + 1}</small>{item}</a>)}
+          {nav.map((item, index) => (
+            <a
+              key={item}
+              className={active === item ? "active" : ""}
+              href={`#${item}`}
+              aria-current={active === item ? "page" : undefined}
+              onClick={() => setActive(item)}
+            >
+              <small>0{index + 1}</small>
+              {item}
+            </a>
+          ))}
         </nav>
-        <a className="status-link" href={`mailto:${identity.email}`}><i /> OPEN TO OPPORTUNITIES</a>
       </header>
 
       <section id="profile" className="hero section-shell">

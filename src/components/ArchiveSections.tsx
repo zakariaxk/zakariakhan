@@ -16,12 +16,11 @@ export function AboutSection() {
       <motion.div className="education-card" {...reveal}>
         <header><span>EDUCATION RECORD</span><i>VERIFIED</i></header>
         <h3>University of Central Florida</h3>
-        <p>Bachelor of Science in Computer Science</p>
+        <p>B.S. in Computer Science</p>
         <dl>
           <div><dt>Completion</dt><dd>Graduation timeline in progress</dd></div>
           <div><dt>Academic signal</dt><dd>3.82 GPA</dd></div>
-          <div><dt>Recognition</dt><dd>Dean&apos;s List 4 times</dd></div>
-          <div><dt>Scholarship</dt><dd>Florida Academic Scholarship</dd></div>
+          <div><dt>Recognition</dt><dd>Florida Academic Scholarship, Dean&apos;s List 4x</dd></div>
         </dl>
       </motion.div>
     </section>

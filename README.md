@@ -1,16 +1,13 @@
-# Signal Archive
+# Zakaria Khan
 
-A cinematic, space-inspired portfolio for Zakaria Khan. Built with Next.js, React, TypeScript, React Three Fiber, Drei, and Framer Motion.
+Portfolio site for Zakaria Khan, a software engineer focused on intelligent systems, resilient backend infrastructure, and products built for real-world use.
 
-## Local development
+Explore the work:
 
-```bash
-npm install
-npm run dev
-```
+- Profile
+- Projects
+- Engineering trajectory
+- Technical systems
+- Contact
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Content
-
-Portfolio copy, project metadata, experience placeholders, skills, and contact channels live in `src/data/portfolio.ts` so they can be replaced without touching the visual system.
+Built to present my work, background, and technical point of view in one place.
