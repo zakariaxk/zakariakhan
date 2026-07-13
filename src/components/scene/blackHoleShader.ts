@@ -89,25 +89,31 @@ export const blackHoleFragmentShader = /* glsl */ `
     color += starField(bentUv * 0.72 + vec2(0.0, uTime * 0.0007), bend, 0.0);
     color += starField(bentUv * 1.51 - 4.2, bend, 1.0) * 0.46 * uQuality;
 
-    float diskRotation = -0.1 + uPointer.x * 0.2;
-    float diskCompression = 0.19 + uPointer.y * 0.05;
+    float diskRotation = -0.1 + uPointer.x * 0.34;
+    float diskCompression = 0.19 + uPointer.y * 0.075;
     vec2 diskUv = rotate2d(diskRotation) * uv;
     float diskRadius = length(vec2(diskUv.x, diskUv.y / diskCompression));
     float diskBand = (1.0 - smoothstep(0.94, 1.27, diskRadius)) * smoothstep(0.385, 0.5, diskRadius);
-    float diskCore = exp(-abs(diskUv.y) * mix(46.0, 58.0, uQuality)) * diskBand;
+    float diskCore = exp(-abs(diskUv.y) * mix(34.0, 44.0, uQuality)) * diskBand;
     float angle = atan(diskUv.y / diskCompression, diskUv.x);
-    float turbulence = fbm(vec2(angle * 3.25 - uTime * 0.105, diskRadius * 12.5));
-    turbulence += 0.32 * sin(angle * 31.0 - diskRadius * 39.0 - uTime * 0.72);
-    turbulence += 0.14 * sin(angle * 67.0 + diskRadius * 23.0 + uTime * 0.31) * uQuality;
-    float strands = smoothstep(0.12, 0.9, turbulence);
+    float pointerSwirl = dot(uPointer, vec2(0.62, -0.38));
+    vec2 flowUv = vec2(
+      angle * 1.18 + diskRadius * 1.65 - uTime * 0.045 + pointerSwirl * 0.55,
+      diskRadius * 3.2 - uTime * 0.032 + uPointer.y * 0.42
+    );
+    float moltenFlow = fbm(flowUv);
+    float smokeFlow = fbm(flowUv * 0.46 + vec2(2.1, -1.7 + uPointer.x * 0.7));
+    float eddyFlow = fbm(vec2(angle * 0.68 - uTime * 0.022, diskRadius * 1.85 + pointerSwirl));
+    float strands = smoothstep(0.16, 0.92, mix(moltenFlow, smokeFlow, 0.48) + eddyFlow * 0.24);
     float doppler = smoothstep(-0.96, 0.92, -diskUv.x / max(diskRadius, 0.01));
-    float diskLight = diskCore * (0.38 + 2.55 * strands) * mix(0.48, 2.05, doppler);
+    float pointerWake = exp(-length((diskUv - uPointer * vec2(0.18, -0.08)) * vec2(2.4, 7.0)) * 1.75);
+    float diskLight = diskCore * (0.72 + 1.38 * strands + 0.55 * pointerWake) * mix(0.48, 2.15 + pointerEnergy * 0.42, doppler);
 
     vec3 ember = vec3(0.64, 0.095, 0.018);
     vec3 amber = vec3(1.0, 0.39, 0.07);
     vec3 whiteHot = vec3(1.0, 0.86, 0.57);
-    vec3 diskColor = mix(ember, amber, strands);
-    diskColor = mix(diskColor, whiteHot, pow(doppler, 3.0) * strands);
+    vec3 diskColor = mix(ember, amber, smoothstep(0.2, 0.88, strands));
+    diskColor = mix(diskColor, whiteHot, pow(doppler, 2.65) * (0.32 + strands * 0.6 + pointerWake * 0.28));
     color += diskColor * diskLight * uIntensity;
 
     float lensEllipse = length(vec2(diskUv.x, (diskUv.y - 0.02) / 0.77));
