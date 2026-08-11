@@ -5,6 +5,16 @@ export type Project = {
   summary: string;
   stack: string[];
   architecture: string[];
+  architectureTrace?: {
+    boundary: { label: string; action: string }[];
+    stages: {
+      code: string;
+      title: string;
+      system: string;
+      description: string;
+      labels?: string[];
+    }[];
+  };
   metrics: { value: string; label: string }[];
   details: string[];
   status: string;
@@ -31,12 +41,82 @@ export const identity = {
 
 export const projects: Project[] = [
   {
+    id: "clt-intelligence",
+    name: "JPMorganChase Data for Good — CLT Investment Intelligence Platform",
+    code: "DS 03",
+    summary: "A decision support platform that prioritizes affordable housing opportunities through evidence based scoring and spatial analysis.",
+    stack: ["Python", "FastAPI", "Pydantic", "Pandas", "NumPy", "GeoJSON", "Leaflet", "React", "TypeScript", "REST APIs", "U.S. Census ACS", "Geocoding", "Spatial scoring", "Data normalization"],
+    architecture: ["Public-data ingestion", "Schema normalization", "Multi-factor scoring", "Geocoding", "Spatial API", "Interactive acquisition map"],
+    metrics: [
+      { value: "< 3s", label: "evaluation time" },
+      { value: "5+ min", label: "previous workflow" },
+      { value: "1", label: "unified scoring pipeline" },
+    ],
+    details: [
+      "Standardized federal census housing data into tract level decision signals.",
+      "Engineered a tract scoring pipeline using acquisition cost, displacement risk, and site readiness to rank acquisition targets.",
+      "Added address search and spatial mapping for rapid property review.",
+    ],
+    status: "DECISION ENGINE READY",
+  },
+  {
     id: "riskweave",
     name: "RiskWeave",
     code: "FI 01",
     summary: "A financial contagion and scenario analysis platform that turns public filings into an auditable knowledge graph of multi-hop exposure.",
-    stack: ["FastAPI", "Neo4j", "Gemini", "Next.js", "React", "TypeScript", "Cytoscape.js", "Python", "Deterministic scoring", "Knowledge graphs", "Financial data", "GitHub"],
+    stack: ["FastAPI", "Neo4j", "Gemini", "Next.js", "Cytoscape.js", "PostgreSQL", "Redis", "Docker", "React", "TypeScript", "Python", "Deterministic scoring", "Knowledge graphs", "Financial data", "GitHub"],
     architecture: ["Public financial data", "Evidence extraction", "Knowledge graph", "Deterministic weight derivation", "Scenario propagation", "Interactive contagion UI"],
+    architectureTrace: {
+      boundary: [
+        { label: "LLM", action: "EXTRACTS / INTERPRETS" },
+        { label: "DETERMINISTIC CODE", action: "CALCULATES / PROPAGATES" },
+      ],
+      stages: [
+        {
+          code: "01 / INGESTION",
+          title: "Public Financial Data",
+          system: "Ingestion",
+          description: "SEC filings, XBRL company facts, macroeconomic data, and curated company relationships enter the ingestion pipeline.",
+        },
+        {
+          code: "02 / EVIDENCE EXTRACTION",
+          title: "Gemini",
+          system: "LLM extraction",
+          description: "Gemini extracts structured relationships and source evidence from unstructured financial documents. It does not generate propagation values.",
+        },
+        {
+          code: "03 / WEIGHT DERIVATION",
+          title: "Deterministic Financial Logic",
+          system: "Deterministic code",
+          description: "Relationship weights are calculated from commodity, concentration, credit, duration, geography, and beta signals.",
+          labels: ["COMMODITY", "CONCENTRATION", "CREDIT", "DURATION", "GEOGRAPHY", "BETA"],
+        },
+        {
+          code: "04 / GRAPH ASSEMBLY",
+          title: "Neo4j",
+          system: "Graph store",
+          description: "Companies, exposures, financial relationships, source evidence, and derived edge weights are assembled into the knowledge graph.",
+        },
+        {
+          code: "05 / CONTAGION ENGINE",
+          title: "Multi-Hop Propagation",
+          system: "Scenario engine",
+          description: "Scenario shocks propagate through connected entities using deterministic edge weights to expose indirect and multi-hop risk.",
+        },
+        {
+          code: "06 / AUDIT LAYER",
+          title: "Source + Derivation Trace",
+          system: "Traceability",
+          description: "Every material relationship can be traced back to its supporting evidence and the method used to derive its weight.",
+        },
+        {
+          code: "07 / DELIVERY",
+          title: "FastAPI + Next.js + Cytoscape.js",
+          system: "Delivery",
+          description: "FastAPI serves scenario results to the Next.js interface, where Cytoscape.js renders contagion paths and live severity changes.",
+        },
+      ],
+    },
     metrics: [
       { value: "125", label: "companies modeled" },
       { value: "6", label: "contagion signals" },
@@ -87,25 +167,6 @@ export const projects: Project[] = [
       "Improved route reliability by 40 percent under active mobile usage.",
     ],
     status: "REAL TIME LINK STABLE",
-  },
-  {
-    id: "clt-intelligence",
-    name: "CLT Intelligence",
-    code: "DS 03",
-    summary: "A decision support platform that prioritizes affordable housing opportunities through evidence based scoring and spatial analysis.",
-    stack: ["Python", "FastAPI", "Pydantic", "Pandas", "NumPy", "GeoJSON", "Leaflet", "React", "TypeScript", "REST APIs", "U.S. Census ACS", "Geocoding", "Spatial scoring", "Data normalization"],
-    architecture: ["Public-data ingestion", "Schema normalization", "Multi-factor scoring", "Geocoding", "Spatial API", "Interactive acquisition map"],
-    metrics: [
-      { value: "< 3s", label: "evaluation time" },
-      { value: "5+ min", label: "previous workflow" },
-      { value: "1", label: "unified scoring pipeline" },
-    ],
-    details: [
-      "Standardized federal census housing data into tract level decision signals.",
-      "Designed a multi factor scoring model for property acquisition prioritization.",
-      "Added address search and spatial mapping for rapid property review.",
-    ],
-    status: "DECISION ENGINE READY",
   },
   {
     id: "options-forecast",
@@ -159,7 +220,7 @@ export const experience: Experience[] = [
       "Automated remediation of 40+ Veracode vulnerabilities by integrating Claude-driven workflows into isolated Ona environments, eliminating local remediation setup for 10+ developers.",
       "Migrated 14 external Feign clients to Spring RestClient, retiring the Spring Cloud OpenFeign dependency from the service.",
     ],
-    tags: ["Python", "ServiceNow", "Splunk", "Claude", "Ona", "Spring RestClient"],
+    tags: ["Python", "Java", "Spring Boot", "Spring RestClient", "ServiceNow", "Splunk", "GitLab", "Jira", "Claude Code", "Ona / Gitpod", "Veracode", "JUnit", "Maven", "SonarQube", "Togglz", "Angular", "Hazelcast", "Camunda BPM", "Apache Kafka", "Cucumber", "Swagger / OpenAPI", "Spring Cloud"],
   },
   {
     period: "JAN 2026 to APR 2026",
@@ -196,9 +257,9 @@ export const experience: Experience[] = [
 ];
 
 export const skillGroups = [
-  { name: "Languages", skills: ["Python", "Java", "C", "C++", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"] },
-  { name: "Application", skills: ["React", "Next.js", "Node.js", "Express", "Spring Boot", "FastAPI", "Socket.IO"] },
-  { name: "Intelligence", skills: ["PyTorch", "TensorFlow", "scikit-learn", "YOLO26", "Gemini API", "Google ADK", "Agentic AI"] },
-  { name: "Data and Cloud", skills: ["PostgreSQL", "Supabase", "MongoDB", "MySQL", "SQLite", "Redis", "AWS"] },
-  { name: "Engineering", skills: ["Docker", "Git", "GitHub", "Jenkins", "CI/CD", "REST APIs", "MCP", "Linux"] },
+  { name: "Languages", skills: ["Java", "Python", "SQL", "C++", "C", "TypeScript", "JavaScript", "HTML", "CSS"] },
+  { name: "Application", skills: ["Spring Boot", "FastAPI", "React", "Next.js", "Node.js", "Express", "Socket.IO"] },
+  { name: "AI & Agentic Systems", skills: ["Claude Code", "OpenAI Codex", "Gemini API", "RAG", "MCP", "Structured Skills", "Agentic Workflows", "scikit-learn"] },
+  { name: "Data & Cloud", skills: ["PostgreSQL", "Supabase", "Redis", "Neo4j", "MongoDB", "MySQL", "SQLite", "AWS"] },
+  { name: "Engineering", skills: ["Git", "GitHub", "Docker", "CI/CD", "Linear", "JUnit", "PyTest", "Veracode", "SonarQube", "OpenSpec", "Postman", "Linux"] },
 ];
