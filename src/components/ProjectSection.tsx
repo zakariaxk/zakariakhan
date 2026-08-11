@@ -18,7 +18,6 @@ export function ProjectSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const field = useRef<HTMLDivElement>(null);
   const project = projects[selected];
-  const architectureTrace = project.architectureTrace;
 
   useEffect(() => {
     if (!isModalOpen) return;
@@ -93,29 +92,7 @@ export function ProjectSection() {
                 <div className="dossier-lead"><h3>{project.name}</h3><p>{project.summary}</p><div className="metrics">{project.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div></div>
                 <div className="dossier-details"><p className="dossier-label">SYSTEM IMPACT</p><ul>{project.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div>
               </div>
-              {architectureTrace ? (
-                <div className="architecture architecture--trace">
-                  <div className="architecture-boundary" aria-label="Architecture boundary">
-                    {architectureTrace.boundary.map((item) => (
-                      <span key={item.label}><strong>{item.label}</strong>{item.action}</span>
-                    ))}
-                  </div>
-                  <p className="dossier-label">ARCHITECTURE TRACE</p>
-                  <div className="architecture-flow">
-                    {architectureTrace.stages.map((stage, index) => (
-                      <article key={stage.code}>
-                        <header><small>{stage.code}</small><span>{stage.system}</span></header>
-                        <h4>{stage.title}</h4>
-                        <p>{stage.description}</p>
-                        {stage.labels ? <div className="architecture-signals">{stage.labels.map((label) => <b key={label}>{label}</b>)}</div> : null}
-                        {index < architectureTrace.stages.length - 1 ? <i aria-hidden="true">→</i> : null}
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="architecture"><p className="dossier-label">ARCHITECTURE TRACE</p><div>{project.architecture.map((layer, index) => <span key={layer}><small>{String(index + 1).padStart(2, "0")}</small>{layer}{index < project.architecture.length - 1 && <i>→</i>}</span>)}</div></div>
-              )}
+              <div className="architecture"><p className="dossier-label">ARCHITECTURE TRACE</p><div>{project.architecture.map((layer, index) => <span key={layer}><small>{String(index + 1).padStart(2, "0")}</small>{layer}{index < project.architecture.length - 1 && <i>→</i>}</span>)}</div></div>
               <div className="stack stack--exhaustive"><p className="dossier-label">COMPLETE TECHNICAL SURFACE / {project.stack.length} COMPONENTS</p><div>{project.stack.map((item) => <span key={item}>{item}</span>)}</div></div>
             </motion.article>
           </motion.div>
