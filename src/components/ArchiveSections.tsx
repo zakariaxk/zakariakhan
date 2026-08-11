@@ -35,7 +35,7 @@ export function ExperienceSection() {
           <motion.article key={`${role.period}-${role.organization}`} {...reveal}>
             <div className="timeline-code">{String(index + 1).padStart(2, "0")}</div>
             <div className="timeline-period">{role.period}</div>
-            <div className="timeline-content"><span>{role.location}</span><h3>{role.title}</h3><h4>{role.organization}</h4><p>{role.impact}</p><div>{role.tags.map((tag) => <small key={tag}>{tag}</small>)}</div></div>
+            <div className="timeline-content"><span>{role.location}</span><h3>{role.title}</h3><h4>{role.organization}</h4>{Array.isArray(role.impact) ? <ul>{role.impact.map((item) => <li key={item}>{item}</li>)}</ul> : <p>{role.impact}</p>}<div>{role.tags.map((tag) => <small key={tag}>{tag}</small>)}</div></div>
           </motion.article>
         ))}
       </div>

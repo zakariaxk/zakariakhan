@@ -797,6 +797,19 @@ a {
   line-height: 1.7;
 }
 
+.timeline-content ul {
+  max-width: 830px;
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.timeline-content li {
+  margin-bottom: 0.65rem;
+  padding-left: 0.35rem;
+  line-height: 1.7;
+}
+
 .systems {
   min-height: 90dvh;
   background: linear-gradient(90deg, rgba(5, 5, 7, 0.9), rgba(5, 5, 7, 0.52));

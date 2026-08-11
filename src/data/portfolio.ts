@@ -10,6 +10,15 @@ export type Project = {
   status: string;
 };
 
+type Experience = {
+  period: string;
+  title: string;
+  organization: string;
+  location: string;
+  impact: string | string[];
+  tags: string[];
+};
+
 export const identity = {
   name: "Zakaria Khan",
   role: "Software Engineer",
@@ -21,6 +30,26 @@ export const identity = {
 };
 
 export const projects: Project[] = [
+  {
+    id: "riskweave",
+    name: "RiskWeave",
+    code: "FI 01",
+    summary: "A financial contagion and scenario analysis platform that turns public filings into an auditable knowledge graph of multi-hop exposure.",
+    stack: ["FastAPI", "Neo4j", "Gemini", "Next.js", "React", "TypeScript", "Cytoscape.js", "Python", "Deterministic scoring", "Knowledge graphs", "Financial data", "GitHub"],
+    architecture: ["Public financial data", "Evidence extraction", "Knowledge graph", "Deterministic weight derivation", "Scenario propagation", "Interactive contagion UI"],
+    metrics: [
+      { value: "125", label: "companies modeled" },
+      { value: "6", label: "contagion signals" },
+      { value: "MULTI-HOP", label: "auditable exposure analysis" },
+    ],
+    details: [
+      "Replaced multi-hour manual filing review by structuring public financial data into a knowledge graph for automated contagion analysis.",
+      "Derived contagion weights deterministically from commodity, concentration, credit, duration, geography, and beta signals, keeping LLM-generated values out of propagation logic.",
+      "Made each graph relationship traceable to source evidence and derivation, enabling auditable multi-hop exposure analysis.",
+      "Modeled 125 companies across CRE and oil-shock scenarios, rendering interactive contagion paths and live severity changes in Cytoscape.js.",
+    ],
+    status: "CONTAGION MAP ONLINE",
+  },
   {
     id: "stabilitynet",
     name: "StabilityNet",
@@ -118,14 +147,19 @@ export const projects: Project[] = [
   },
 ];
 
-export const experience = [
+export const experience: Experience[] = [
   {
     period: "JUN 2026 to AUG 2026",
     title: "Software Engineer Intern",
     organization: "Bank of New York",
     location: "Lake Mary, Florida",
-    impact: "Built a Python multi agent RAG platform with MCP across 68 microservices, cutting incident triage time by 70 percent. Connected ServiceNow, Splunk, GitLab, and Jira data for automated root cause analysis and grounded NAV exception support.",
-    tags: ["Python", "MCP", "RAG", "Enterprise APIs"],
+    impact: [
+      "Reduced production ServiceNow incident triage time by 90% with a Python multi-agent root cause analysis tool correlating Splunk logs, GitLab source code, and Jira release history across 68 microservices.",
+      "Streamlined fund accountant exception review by ingesting 5 prior/current-day reports into deterministic NAV/yield calculations, with an LLM explaining security-level tolerance breaks.",
+      "Automated remediation of 40+ Veracode vulnerabilities by integrating Claude-driven workflows into isolated Ona environments, eliminating local remediation setup for 10+ developers.",
+      "Migrated 14 external Feign clients to Spring RestClient, retiring the Spring Cloud OpenFeign dependency from the service.",
+    ],
+    tags: ["Python", "ServiceNow", "Splunk", "Claude", "Ona", "Spring RestClient"],
   },
   {
     period: "JAN 2026 to APR 2026",
