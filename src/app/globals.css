@@ -723,119 +723,6 @@ a {
   font-style: normal;
 }
 
-.architecture--trace {
-  display: block;
-}
-
-.architecture-boundary {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  margin-bottom: 1.35rem;
-  border: 1px solid var(--line);
-  background: var(--line);
-}
-
-.architecture-boundary span {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 46px;
-  gap: 1rem;
-  padding: 0.8rem 0.95rem;
-  background: rgba(11, 10, 11, 0.92);
-  color: var(--muted);
-  text-transform: uppercase;
-  font: 500 0.55rem/1.4 var(--font-mono);
-  letter-spacing: 0.08em;
-}
-
-.architecture-boundary strong {
-  color: var(--amber-hot);
-  font-weight: 600;
-}
-
-.architecture-flow {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(148px, 1fr));
-  gap: 1px;
-  overflow-x: auto;
-  border: 1px solid var(--line);
-  background: var(--line);
-}
-
-.architecture-flow article {
-  position: relative;
-  min-height: 255px;
-  padding: 1rem;
-  background: rgba(8, 7, 8, 0.92);
-}
-
-.architecture-flow article > i {
-  position: absolute;
-  top: 1rem;
-  right: -0.42rem;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 0.85rem;
-  height: 1.2rem;
-  background: rgba(8, 7, 8, 0.92);
-  color: var(--amber);
-  font-style: normal;
-}
-
-.architecture-flow header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  min-height: 3.4rem;
-}
-
-.architecture-flow small,
-.architecture-flow header span {
-  text-transform: uppercase;
-  font: 500 0.5rem/1.4 var(--font-mono);
-  letter-spacing: 0.08em;
-}
-
-.architecture-flow small {
-  color: var(--amber);
-}
-
-.architecture-flow header span {
-  color: var(--muted-deep);
-}
-
-.architecture-flow h4 {
-  margin: 1rem 0 0;
-  color: var(--pearl);
-  font-size: 1rem;
-  line-height: 1.25;
-}
-
-.architecture-flow p {
-  margin: 0.85rem 0 0;
-  color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.55;
-}
-
-.architecture-signals {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: 1rem;
-}
-
-.architecture-signals b {
-  padding: 0.25rem 0.35rem;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  font: 500 0.46rem var(--font-mono);
-  letter-spacing: 0.06em;
-}
-
 .stack {
   display: flex;
   flex-wrap: wrap;
@@ -1097,10 +984,6 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .architecture-flow {
-    grid-template-columns: repeat(4, minmax(168px, 1fr));
-  }
-
   .skill-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1250,33 +1133,6 @@ a {
 
   .architecture i {
     display: none;
-  }
-
-  .architecture-boundary {
-    grid-template-columns: 1fr;
-  }
-
-  .architecture-boundary span {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .architecture-flow {
-    grid-template-columns: 1fr;
-    overflow: visible;
-  }
-
-  .architecture-flow article {
-    min-height: auto;
-  }
-
-  .architecture-flow article > i {
-    display: none;
-  }
-
-  .architecture-flow header {
-    min-height: 0;
   }
 
   .timeline article {
