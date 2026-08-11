@@ -10,6 +10,7 @@ const artifactPositions = [
   { x: "76%", y: "73%", delay: "-11s" },
   { x: "18%", y: "76%", delay: "-4s" },
   { x: "49%", y: "12%", delay: "-9s" },
+  { x: "52%", y: "78%", delay: "-6s" },
 ];
 
 export function ProjectSection() {
